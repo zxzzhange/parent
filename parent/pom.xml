@@ -1,9 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>parent</groupId>
+
+	<groupId>com.zg.parent</groupId>
 	<artifactId>parent</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -26,12 +27,14 @@
 	</modules>
 
 	<dependencies>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
 		<dependency>
 			<groupId>${spring.groupId}</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
 		<dependency>
 			<groupId>${spring.groupId}</groupId>
@@ -171,14 +174,14 @@
 	<build>
 		<plugins>
 			<plugin>
-			    <artifactId>maven-surefire-plugin</artifactId>
-			    <version>2.6</version>
-			    <configuration>
-			    	<!-- 跳过测试，可以控制所有子项目 -->
-			        <skip>true</skip>
-			    </configuration>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<!-- 跳过测试，可以控制所有子项目 -->
+					<skip>true</skip>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

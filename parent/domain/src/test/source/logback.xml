@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %-20(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level %line %logger{80}.%method - %msg%n
+            </pattern>
+            <!--<charset>UTF-8</charset>-->
+        </encoder>
+    </appender>
+    <logger name="org.springframework" level="ERROR" />
+    <logger name="com.zg" level="DEBUG" />
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

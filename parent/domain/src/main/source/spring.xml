@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<!-- 配置只扫描@Repositpry -->
+<context:component-scan base-package="com.zg.git.*">
+	<!-- <context:include-filter type="annotation" expression="org.aspectj.apache.bcel.Repository"/> -->
+</context:component-scan>
+
+<!-- 引入数据库配置文件 -->
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations">
+		<value>classpath:jdbc.properties</value>
+	</property>
+</bean>
+
+<!-- 配置数据源 -->
+<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="${mysql.driver}"/>
+	<property name="url" value="${mysql.url}"/>
+	<property name="username" value="${mysql.username}"/>
+	<property name="password" value="${mysql.password}"/>
+</bean>
+
+<!-- 配置mybaits 会话 -->
+<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- 使用外部数据源 -->
+	<property name="dataSource"  ref="dataSource"/>
+	
+	<!-- 加载mybaits.cfg.xml 文件 -->
+	<!-- <property name="configLocation" value="classpath:mybatis.cfg.xml"/> -->
+	
+	<!-- 定义扫描查询返回的类 -->
+	 <property name="typeAliasesPackage" value="com.zg.git.beans"/>
+</bean> 
+
+<!-- 定义字段扫描的Mapper接口文件目录 -->
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<property name="basePackage" value="com.zg.git.mapper"/>
+</bean>
+
+<!-- 事务管理器 -->
+<bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref="dataSource"/>
+</bean>
+
+</beans>

@@ -5,8 +5,10 @@
 	<artifactId>parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	
+
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.java.version>1.7</project.java.version>
 		<spring.groupId>org.springframework</spring.groupId>
 		<spring.version>4.3.3.RELEASE</spring.version>
 		<mybatis.groupId>org.mybatis</mybatis.groupId>
@@ -15,15 +17,13 @@
 		<mysql.version>5.1.40</mysql.version>
 	</properties>
 
-<modules>
-	<module>admin</module>
-	<module>domain</module>
-	<module>service</module>
-	<module>shop</module>
-	<module>units</module>
-	<module>zg</module>
-	<module>aaaaa</module>
-</modules>
+	<modules>
+		<module>admin</module>
+		<module>domain</module>
+		<module>service</module>
+		<module>shop</module>
+		<module>units</module>
+	</modules>
 
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
@@ -166,8 +166,19 @@
 			<version>1.1.7</version>
 		</dependency>
 
-
 	</dependencies>
 
-
+	<build>
+		<plugins>
+			<plugin>
+			    <artifactId>maven-surefire-plugin</artifactId>
+			    <version>2.6</version>
+			    <configuration>
+			    	<!-- 跳过测试，可以控制所有子项目 -->
+			        <skip>true</skip>
+			    </configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>

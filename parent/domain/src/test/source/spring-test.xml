@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 加载所有perperties类型配置文件 -->
+	<context:property-placeholder location="*.properties" />
+	
+	<context:component-scan base-package="com.zg.git.*"/>
+	
+<!-- 	<cache:annotation-driven proxy-target-class="true"/>	 -->
+
+	<!-- 单元测试使用，测试使用内存数据库 -->
+	<jdbc:embedded-database id="dataSource" type="H2"
+		database-name="testdb;DATABASE_TO_UPPER=false">
+		<jdbc:script location="classpath:dbType.sql" encoding="utf-8" />
+		<jdbc:script location="classpath:table.sql" encoding="utf-8" />
+	</jdbc:embedded-database>
+
+	<!-- -->
+	<!-- 配置mybaits 会话 -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 使用外部数据源 -->
+		<property name="dataSource" ref="dataSource" />
+
+		<!-- 加载mybaits.cfg.xml 文件 -->
+	<!-- 	<property name="configLocation" value="classpath:mybatis.cfg.xml" /> -->
+
+		<!-- 定义扫描查询返回的类 -->
+		<!-- <property name="" value="com.zg.git.beans" /> -->
+	</bean>
+
+	<!-- 定义字段扫描的Mapper接口文件目录 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zg.git.mapper" />
+	</bean>
+
+</beans>

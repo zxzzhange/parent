@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+       <dubbo:application name="zg-git-dubbo"/>
+       
+       <dubbo:registry protocol="zookeeper" address="${zookeeper.server}" port="${zookeeper.port}"/>
+       
+    <!--    <dubbo:provider  filter="dubboLogFilter"/> -->
+       
+       <dubbo:protocol name="dubbo" port="${dubbo.port}" serialization="hessian2" charset="UTF-8"/>
+       
+       <!-- <dubbo:reference interface="com.zg.git.service.IUserService" id="userService"/> -->
+       
+      <dubbo:service interface="com.zg.git.service.IUserService" ref="userServiceImpl" timeout="60000"/> 
+       
+</beans>

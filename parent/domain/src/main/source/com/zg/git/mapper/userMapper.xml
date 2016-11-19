@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.zg.git.beans.User">
+	<resultMap type="user" id="userResultMap">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="year" column="year"/>
+	</resultMap>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+		INSERT INTO USER (NAME, YEAR) VALUES(#NAME, YEAR)
+		]]>
+	</insert>
+	
+	<update id="update">
+		UPDATE USER 
+			<set>
+				<if test="name != null and name != '' ">
+					NAME = #{name}
+				</if>
+				<if test="year != null and year != 0">
+					YEAR = #{year}
+				</if>
+			</set>
+			WHERE ID = #{id}
+	</update>
+	
+	<select id="findById" resultMap="userResultMap">
+		SELECT ID, NAME, YEAR FEOM USER WHERE ID = #{id}
+	</select>
+	
+</mapper>

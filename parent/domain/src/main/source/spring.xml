@@ -2,8 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 <!-- 配置只扫描@Repositpry -->
 <context:component-scan base-package="com.zg.git.*">
@@ -13,16 +15,16 @@
 <!-- 引入数据库配置文件 -->
 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	<property name="locations">
-		<value>classpath:jdbc.properties</value>
+		<value>classpath:*.properties</value>
 	</property>
 </bean>
 
 <!-- 配置数据源 -->
 <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	<property name="driverClassName" value="${mysql.driver}"/>
-	<property name="url" value="${mysql.url}"/>
-	<property name="username" value="${mysql.username}"/>
-	<property name="password" value="${mysql.password}"/>
+	<property name="driverClassName" value="${jdbc.driver}"/>
+	<property name="url" value="${jdbc.url}"/>
+	<property name="username" value="${jdbc.user}"/>
+	<property name="password" value="${jdbc.pwd}"/>
 </bean>
 
 <!-- 配置mybaits 会话 -->
@@ -31,7 +33,7 @@
 	<property name="dataSource"  ref="dataSource"/>
 	
 	<!-- 加载mybaits.cfg.xml 文件 -->
-	<!-- <property name="configLocation" value="classpath:mybatis.cfg.xml"/> -->
+	<property name="configLocation" value="classpath:mybatis.cfg.xml"/>
 	
 	<!-- 定义扫描查询返回的类 -->
 	 <property name="typeAliasesPackage" value="com.zg.git.beans"/>
@@ -43,8 +45,8 @@
 </bean>
 
 <!-- 事务管理器 -->
-<bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 	<property name="dataSource" ref="dataSource"/>
 </bean>
-
+<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 </beans>

@@ -12,7 +12,6 @@
 
 	<groupId>com.zg.service</groupId>
 	<artifactId>service</artifactId>
-	<version>1.0.0</version>
 
 	<name>service</name>
 	<url>http://maven.apache.org</url>
@@ -22,7 +21,6 @@
 	</properties>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
